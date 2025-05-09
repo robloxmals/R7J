@@ -1,133 +1,148 @@
-return function()
-	local Players = game:GetService("Players")
-	local LocalPlayer = Players.LocalPlayer
-	local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+-- R7J gui V1
 
-	local gui = Instance.new("ScreenGui", PlayerGui)
-	gui.Name = "R7J_GUI"
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
-	local mainFrame = Instance.new("Frame", gui)
-	mainFrame.Size = UDim2.new(0, 350, 0, 200)
-	mainFrame.Position = UDim2.new(0.5, -175, 0.5, -100)
-	mainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	mainFrame.Active = true
-	mainFrame.Draggable = true
-	local mainCorner = Instance.new("UICorner", mainFrame)
-	mainCorner.CornerRadius = UDim.new(0, 10)
+-- Gui
+local gui = Instance.new("ScreenGui", PlayerGui)
+gui.Name = "R7J_GUI"
 
-	local function createButton(text, pos, func)
-		local button = Instance.new("TextButton", mainFrame)
-		button.Size = UDim2.new(0, 100, 0, 30)
-		button.Position = pos
-		button.Text = text
-		button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		button.TextColor3 = Color3.new(0, 0, 0)
-		button.BorderSizePixel = 2
-		button.Font = Enum.Font.SourceSansBold
-		button.TextScaled = true
-		local corner = Instance.new("UICorner", button)
-		corner.CornerRadius = UDim.new(0, 6)
-		button.MouseButton1Click:Connect(func)
-	end
+local mainFrame = Instance.new("Frame", gui)
+mainFrame.Size = UDim2.new(0, 350, 0, 200)
+mainFrame.Position = UDim2.new(0.5, -175, 0.5, -100)
+mainFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+mainFrame.Active = true
+mainFrame.Draggable = true
 
-	createButton("Theme", UDim2.new(0, 10, 0, 10), function()
-		local sound = Instance.new("Sound", workspace)
-		sound.SoundId = "rbxassetid://77227669080312"
-		sound.Volume = 10
-		sound.Looped = true
-		sound:Play()
-	end)
+local mainCorner = Instance.new("UICorner", mainFrame)
+mainCorner.CornerRadius = UDim.new(0, 10)
 
-	local title = Instance.new("TextLabel", mainFrame)
-	title.Text = "R7J gui V2"
-	title.Size = UDim2.new(0, 100, 0, 30)
-	title.Position = UDim2.new(0, 125, 0, 10)
-	title.BackgroundTransparency = 1
-	title.TextColor3 = Color3.new(0,0,0)
-	title.TextScaled = true
-	title.Font = Enum.Font.SourceSansBold
-
-	createButton("unmusic", UDim2.new(0, 240, 0, 10), function()
-		for _, s in pairs(workspace:GetDescendants()) do
-			if s:IsA("Sound") then s:Stop() end
-		end
-	end)
-
-	createButton("Skybox", UDim2.new(0, 10, 0, 50), function()
-		game.Lighting.ClockTime = 13
-		local sky = Instance.new("Sky", game.Lighting)
-		sky.SkyboxBk = "rbxassetid://104657690194884"
-		sky.SkyboxDn = sky.SkyboxBk
-		sky.SkyboxFt = sky.SkyboxBk
-		sky.SkyboxLf = sky.SkyboxBk
-		sky.SkyboxRt = sky.SkyboxBk
-		sky.SkyboxUp = sky.SkyboxBk
-	end)
-
-	createButton("Decal", UDim2.new(0, 120, 0, 50), function()
-		for _, part in pairs(workspace:GetDescendants()) do
-			if part:IsA("BasePart") then
-				local faces = {"Front", "Back", "Top", "Bottom", "Left", "Right"}
-				for _, face in ipairs(faces) do
-					local decal = Instance.new("Decal")
-					decal.Texture = "rbxassetid://104657690194884"
-					decal.Face = Enum.NormalId[face]
-					decal.Parent = part
-				end
-			end
-		end
-	end)
-
-	createButton("Particles", UDim2.new(0, 230, 0, 50), function()
-		for _, player in pairs(Players:GetPlayers()) do
-			if player.Character and player.Character:FindFirstChild("Torso") then
-				local p = Instance.new("ParticleEmitter", player.Character.Torso)
-				p.Texture = "rbxassetid://104657690194884"
-			end
-		end
-	end)
-
-	createButton("Jumpscare", UDim2.new(0, 10, 0, 90), function()
-		local img = Instance.new("ImageLabel", gui)
-		img.Size = UDim2.new(1, 0, 1, 0)
-		img.Position = UDim2.new(0, 0, 0, 0)
-		img.Image = "rbxassetid://74587875188398"
-		img.BackgroundTransparency = 1
-		img.ZIndex = 10
-		wait(3)
-		img:Destroy()
-	end)
-
-	createButton("Hint", UDim2.new(0, 120, 0, 90), function()
-		local hint = Instance.new("Hint", workspace)
-		hint.Text = "R7J IS HERE"
-		wait(5)
-		hint:Destroy()
-	end)
-
-	createButton("Jumpstyle", UDim2.new(0, 230, 0, 90), function()
-		local s = Instance.new("Sound", workspace)
-		s.SoundId = "rbxassetid://1839246711"
-		s.Volume = 10
-		s.Looped = true
-		s:Play()
-	end)
-
-	local toggleButton = Instance.new("TextButton", gui)
-	toggleButton.Size = UDim2.new(0, 120, 0, 30)
-	toggleButton.Position = UDim2.new(0, 10, 0, 150)
-	toggleButton.Text = "Hide Menu"
-	toggleButton.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
-	toggleButton.TextColor3 = Color3.new(0, 0, 0)
-	toggleButton.TextScaled = true
-	toggleButton.Font = Enum.Font.SourceSansBold
-	local toggleCorner = Instance.new("UICorner", toggleButton)
-	toggleCorner.CornerRadius = UDim.new(0, 6)
-
-	local menuVisible = true
-	toggleButton.MouseButton1Click:Connect(function()
-		menuVisible = not menuVisible
-		mainFrame.Visible = menuVisible
-		toggleButton.Text = menuVisible and "Hide Menu" or "Show Menu"
-	end)
+-- Button
+local function createButton(text, pos, func)
+	local button = Instance.new("TextButton", mainFrame)
+	button.Size = UDim2.new(0, 100, 0, 30)
+	button.Position = pos
+	button.Text = text
+	button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	button.TextColor3 = Color3.new(0, 0, 0)
+	button.BorderSizePixel = 2
+	button.Font = Enum.Font.SourceSansBold
+	button.TextScaled = true
+	local corner = Instance.new("UICorner", button)
+	corner.CornerRadius = UDim.new(0, 6)
+	button.MouseButton1Click:Connect(func)
 end
+
+-- Theme
+createButton("Theme", UDim2.new(0, 10, 0, 10), function()
+	local sound = Instance.new("Sound", workspace)
+	sound.SoundId = "rbxassetid://77227669080312"
+	sound.Volume = 10
+	sound.Looped = true
+	sound:Play()
+end)
+
+-- Hint
+local title = Instance.new("TextLabel", mainFrame)
+title.Text = "R7J gui V2"
+title.Size = UDim2.new(0, 100, 0, 30)
+title.Position = UDim2.new(0, 125, 0, 10)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.new(0,0,0)
+title.TextScaled = true
+title.Font = Enum.Font.SourceSansBold
+
+-- unmusic
+createButton("unmusic", UDim2.new(0, 240, 0, 10), function()
+	for _, s in pairs(workspace:GetDescendants()) do
+		if s:IsA("Sound") then
+			s:Stop()
+		end
+	end
+end)
+
+-- Skybox
+createButton("Skybox", UDim2.new(0, 10, 0, 50), function()
+	game.Lighting:SetMinutesAfterMidnight(13 * 60)
+	local sky = Instance.new("Sky", game.Lighting)
+	sky.SkyboxBk = "rbxassetid://104657690194884"
+	sky.SkyboxDn = sky.SkyboxBk
+	sky.SkyboxFt = sky.SkyboxBk
+	sky.SkyboxLf = sky.SkyboxBk
+	sky.SkyboxRt = sky.SkyboxBk
+	sky.SkyboxUp = sky.SkyboxBk
+end)
+
+-- Decal
+createButton("Decal", UDim2.new(0, 120, 0, 50), function()
+	for _, descendant in pairs(workspace:GetDescendants()) do
+		if descendant:IsA("Part") or descendant:IsA("MeshPart") then
+			local sides = {"Front", "Back", "Left", "Right", "Top", "Bottom"}
+			for _, face in pairs(sides) do
+				local decal = Instance.new("Decal", descendant)
+				decal.Texture = "rbxassetid://104657690194884"
+				decal.Face = Enum.NormalId[face]
+			end
+		end
+	end
+end)
+
+-- Particles
+createButton("Particles", UDim2.new(0, 230, 0, 50), function()
+	for _, player in pairs(Players:GetPlayers()) do
+		if player.Character and player.Character:FindFirstChild("Torso") then
+			local p = Instance.new("ParticleEmitter", player.Character.Torso)
+			p.Texture = "rbxassetid://104657690194884"
+		end
+	end
+end)
+
+-- Jumpscare
+createButton("Jumpscare", UDim2.new(0, 10, 0, 90), function()
+	local img = Instance.new("ImageLabel", gui)
+	img.Size = UDim2.new(1, 0, 1, 0)
+	img.Position = UDim2.new(0, 0, 0, 0)
+	img.Image = "rbxassetid://74587875188398"
+	img.BackgroundTransparency = 1
+	img.ZIndex = 10
+	wait(3)
+	img:Destroy()
+end)
+
+-- Hint
+createButton("Hint", UDim2.new(0, 120, 0, 90), function()
+	local hint = Instance.new("Hint", workspace)
+	hint.Text = "ThE GaMe GoT HaCkEd By R7J"
+	wait(5)
+	hint:Destroy()
+end)
+
+-- JumpStyle
+createButton("Jumpstyle", UDim2.new(0, 230, 0, 90), function()
+	local s = Instance.new("Sound", workspace)
+	s.SoundId = "rbxassetid://1839246711"
+	s.Volume = 10
+	s.Looped = true
+	s:Play()
+end)
+
+-- Hide menu/open menu
+local toggleButton = Instance.new("TextButton", gui)
+toggleButton.Size = UDim2.new(0, 120, 0, 30)
+toggleButton.Position = UDim2.new(0, 10, 0, 10)
+toggleButton.Text = "Hide Menu"
+toggleButton.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+toggleButton.TextColor3 = Color3.new(0, 0, 0)
+toggleButton.TextScaled = true
+toggleButton.Font = Enum.Font.SourceSansBold
+
+local toggleCorner = Instance.new("UICorner", toggleButton)
+toggleCorner.CornerRadius = UDim.new(0, 6)
+
+local menuVisible = true
+toggleButton.MouseButton1Click:Connect(function()
+	menuVisible = not menuVisible
+	mainFrame.Visible = menuVisible
+	toggleButton.Text = menuVisible and "Hide Menu" or "Show Menu"
+end)
